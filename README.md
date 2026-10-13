@@ -33,8 +33,8 @@ The build requires the .NET SDK, the .NET Framework 4.7.2 Developer Pack, the Ri
 
 ```powershell
 dotnet build .\GammaHitSounds.csproj -c Release `
-  -p:RimWorldDir="D:\Games\Steam\steamapps\common\RimWorld" `
-  -p:HarmonyDir="D:\Games\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies"
+  -p:RimWorldDir="<RimWorld installation directory>" `
+  -p:HarmonyDir="<directory containing 0Harmony.dll>"
 ```
 
 `RimWorldDir` must point to the game installation directory. `HarmonyDir` must point to the directory containing `0Harmony.dll`. You can also set the `RIMWORLD_DIR` and `HARMONY_DIR` environment variables instead of passing these properties. A Release build writes `DHM.GammaHitEffects.dll` to `GAMMA hit sounds/Assemblies`.
@@ -43,4 +43,4 @@ dotnet build .\GammaHitSounds.csproj -c Release `
 
 The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
 
-The project source is available on [GitHub](https://github.com/soc1almemory/GAMMA-hit-sounds-mod) and is licensed under the [MIT License](LICENSE).
+The project source is licensed under the [MIT License](LICENSE).
