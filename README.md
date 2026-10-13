@@ -2,7 +2,7 @@
 
 ![GAMMA Hit Sounds banner](res/banner.png)
 
-GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. It is made for RimWorld 1.6 and requires Harmony. Combat Extended compatibility is optional.
+GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. Harmony required. Combat Extended is supported!
 
 ## Features
 
@@ -24,8 +24,6 @@ RimWorld loads the clips from folders referenced by `Defs/SoundDefs/Gamma_Hit_So
 | `Sounds/Body/Mechanoid` | 20 | Replaced bullet-related armor deflections |
 | `Sounds/Head/Helmet` | 20 | Head parts covered by sharp armor |
 | `Sounds/Head/NoHelmet` | 40 | Unhelmeted head hits |
-
-Clip names use the category's descriptive prefix and a two-digit sequence number. All 40 unhelmeted head clips follow the same `hit_head_no_helmet_XX.ogg` pattern.
 
 ## Build
 
