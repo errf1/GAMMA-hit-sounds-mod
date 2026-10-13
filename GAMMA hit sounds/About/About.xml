@@ -19,6 +19,7 @@
     <li>brrainz.harmony</li>
     <li>CETeam.CombatExtended</li>
   </loadAfter>
-  <description>Adds randomized S.T.A.L.K.E.R. G.A.M.M.A. hit sounds for firearm injuries in RimWorld. The original hit-effects mod is by wepl: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects
+  <description>Adds randomized S.T.A.L.K.E.R. G.A.M.M.A. hit sounds for firearm injuries in RimWorld. 
+    The original hit-effects mod is by wepl: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects
   </description>
 </ModMetaData>
