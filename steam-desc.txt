@@ -1,7 +1,7 @@
 [h1]GAMMA Hit Sounds[/h1]
 Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
 
-[img]https://github.com/user-attachments/assets/6c3d2fbd-b733-47fc-8565-0db5f589b547[/img]
+[img]https://i.postimg.cc/B63PFLHm/banner.png[/img]
 
 [h2]Features[/h2]
 [list]
@@ -16,4 +16,5 @@ Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuri
 [h3]Combat Extended is supported![/h3]
 
 [h2]Credits[/h2]
-Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
+Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] 
+The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
