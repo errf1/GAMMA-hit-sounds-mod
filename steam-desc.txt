@@ -13,7 +13,7 @@ Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuri
 [*]Direct mechanoid injury sounds remain handled by the base game or other mods.
 [/list]
 
-[h3]Combat Extended is supported[/h3]
+[h3]Combat Extended is supported![/h3]
 
 [h2]Credits[/h2]
 Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
