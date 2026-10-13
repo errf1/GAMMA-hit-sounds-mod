@@ -1,6 +1,6 @@
 # GAMMA hit sounds
 
-Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A.
+Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld
 
 <img width="1920" height="512" alt="banner" src="https://github.com/user-attachments/assets/6c3d2fbd-b733-47fc-8565-0db5f589b547" />
 
