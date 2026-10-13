@@ -7,7 +7,7 @@ GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firea
 ## Features
 
 - Uses separate sound pools for armored and unarmored body hits, helmet hits, unhelmeted head hits, and mechanoid armor deflections.
-- Chooses a random clip from the matching pool and limits regular hit sounds to one per pawn per game tick. Each pool contains 20 clips, except the unhelmeted head pool, which combines 20 gas-mask clips and 20 unarmored clips.
+- Chooses a random clip from the matching pool and limits regular hit sounds to one per pawn per game tick. The body and helmet pools contain 20 clips each; the unhelmeted head pool contains 40.
 - Uses sharp armor on the struck body part to choose between the armored and unarmored pools. When Combat Extended is loaded, its partial apparel-armor value is used when available.
 - Recognizes vanilla bullet damage and selected Combat Extended damage types: `Fragment`, `Tranquilizer`, `CE_Laser`, and `BulletToxic`.
 - Suppresses the matching vanilla ground-impact sound and replaces bullet-related `Deflect_Metal` and `Deflect_General` cues with the mechanoid pool when that damage event did not produce a normal injury sound.
@@ -23,7 +23,7 @@ RimWorld loads the clips from folders referenced by `Defs/SoundDefs/Gamma_Hit_So
 | `Sounds/Body/NoArmor` | 20 | Body parts without sharp armor |
 | `Sounds/Body/Mechanoid` | 20 | Replaced bullet-related armor deflections |
 | `Sounds/Head/Helmet` | 20 | Head parts covered by sharp armor |
-| `Sounds/Head/NoHelmet` | 40 | 20 gas-mask clips and 20 unarmored clips |
+| `Sounds/Head/NoHelmet` | 40 | Unhelmeted head hits |
 
 Clip names use the category's descriptive prefix and a two-digit sequence number. All 40 unhelmeted head clips follow the same `hit_head_no_helmet_XX.ogg` pattern.
 
@@ -43,4 +43,4 @@ dotnet build .\GammaHitSounds.csproj -c Release `
 
 The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
 
-The project source is licensed under the [MIT License](LICENSE).
+This repository is licensed under the [MIT License](LICENSE).
