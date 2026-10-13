@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <SoundDef>
+    <defName>DHM_GammaHit_Head_NoHelmet</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>GammaHits/Head/NoHelmet</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.96~1.04</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>DHM_GammaHit_Head_Helmet</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>GammaHits/Head/Helmet</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.96~1.04</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>DHM_GammaHit_Body_NoArmor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>GammaHits/Body/NoArmor</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.96~1.04</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>DHM_GammaHit_Body_Armor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>GammaHits/Body/Armor</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.96~1.04</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>DHM_GammaHit_Body_Mechanoid</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>GammaHits/Body/Mechanoid</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>18~24</volumeRange>
+        <pitchRange>0.96~1.04</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>

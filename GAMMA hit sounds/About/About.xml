@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ModMetaData>
+  <name>GAMMA hit sounds</name>
+  <author>soc1almemory</author>
+  <packageId>soc1almemory.gammahitsounds</packageId>
+  <modVersion>0.1.0</modVersion>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+    <li>CETeam.CombatExtended</li>
+  </loadAfter>
+  <description>Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A.
+
+  https://www.stalkergamma.com/
+
+  Original mod: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects [Author: wepl]
+
+  </description>
+</ModMetaData>
