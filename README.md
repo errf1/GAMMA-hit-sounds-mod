@@ -2,7 +2,7 @@
 
 Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A.
 
-<img width="1920" height="512" alt="Banner" src="https://postimg.cc/qtm7V7mK" />
+<img width="1920" height="512" alt="banner" src="https://github.com/user-attachments/assets/6c3d2fbd-b733-47fc-8565-0db5f589b547" />
 
 https://www.stalkergamma.com/
 
