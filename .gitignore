@@ -130,6 +130,7 @@ $RECYCLE.BIN/
 _NCrunch*
 
 *.lnk
+build.txt
 PublishedFileId.txt
 notes.txt
 README-example.md
