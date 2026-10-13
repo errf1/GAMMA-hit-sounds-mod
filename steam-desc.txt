@@ -5,15 +5,11 @@ Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuri
 
 [h2]Features[/h2]
 [list]
-[*]Separate randomized pools for armored and unarmored body hits, helmet hits, and unhelmeted head hits.
-[*]The unhelmeted head pool combines gas-mask and unarmored sounds.
-[*]Limits regular hit sounds to one per pawn per game tick.
-[*]Bullet-related armor deflections use mechanoid impact sounds when no regular injury sound played.
-[*]Suppresses the matching vanilla ground-impact sound to avoid doubled effects.
-[*]Direct mechanoid injury sounds remain handled by the base game or other mods.
+[*][b]Armor-aware sounds:[/b] body and head injuries use separate armored and unarmored sound pools, selected according to sharp armor on the struck body part.
+[*][b]Randomized clips:[/b] each sound pool contains multiple impact clips for variety.
+[*][b]Combat Extended support:[/b] when CE is installed, the mod uses its body-part-specific armor value when available.
+[*][b]Mechanoid deflections:[/b] bullet-related armor deflection sounds use the mechanoid impact pool when that damage event did not produce a regular hit sound.
 [/list]
-
-[h3]Combat Extended is supported![/h3]
 
 [h2]Credits[/h2]
 Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] 
