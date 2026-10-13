@@ -15,17 +15,17 @@ GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firea
 
 ## Sound files
 
-RimWorld loads the clips from folders referenced by `Defs/SoundDefs/DHM_GammaHit_Sounds.xml`:
+RimWorld loads the clips from folders referenced by `Defs/SoundDefs/Gamma_Hit_Sounds.xml`:
 
 | Folder | Clips | Used for |
 | --- | ---: | --- |
-| `Sounds/GammaHits/Body/Armor` | 20 | Body parts covered by sharp armor |
-| `Sounds/GammaHits/Body/NoArmor` | 20 | Body parts without sharp armor |
-| `Sounds/GammaHits/Body/Mechanoid` | 20 | Replaced bullet-related armor deflections |
-| `Sounds/GammaHits/Head/Helmet` | 20 | Head parts covered by sharp armor |
-| `Sounds/GammaHits/Head/NoHelmet` | 40 | 20 gas-mask clips and 20 unarmored clips |
+| `Sounds/Body/Armor` | 20 | Body parts covered by sharp armor |
+| `Sounds/Body/NoArmor` | 20 | Body parts without sharp armor |
+| `Sounds/Body/Mechanoid` | 20 | Replaced bullet-related armor deflections |
+| `Sounds/Head/Helmet` | 20 | Head parts covered by sharp armor |
+| `Sounds/Head/NoHelmet` | 40 | 20 gas-mask clips and 20 unarmored clips |
 
-Clip names use descriptive category prefixes and two-digit sequence numbers, such as `hit_body_armor_01.ogg` and `hit_head_no_helmet_20.ogg`.
+Clip names use the category's descriptive prefix and a two-digit sequence number. All 40 unhelmeted head clips follow the same `hit_head_no_helmet_XX.ogg` pattern.
 
 ## Build
 
