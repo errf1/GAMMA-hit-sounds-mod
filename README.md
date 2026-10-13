@@ -1,6 +1,8 @@
-# DHM Addon - GAMMA hit effects
+# GAMMA hit sounds
 
 Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A.
+
+<img width="1920" height="512" alt="Banner" src="https://i.postimg.cc/B63PFLHm/banner.png" />
 
 https://www.stalkergamma.com/
 
