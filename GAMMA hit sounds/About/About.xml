@@ -19,11 +19,11 @@
     <li>brrainz.harmony</li>
     <li>CETeam.CombatExtended</li>
   </loadAfter>
-  <description>Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A.
+  <description>Adds randomized S.T.A.L.K.E.R. G.A.M.M.A. hit sounds for firearm injuries in RimWorld.
 
-  https://www.stalkergamma.com/
+Requires Harmony. Combat Extended is optional and supported when installed.
 
-  Original mod: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects [Author: wepl]
+Sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by wepl: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects
 
-  </description>
+Learn more about G.A.M.M.A.: https://www.stalkergamma.com/</description>
 </ModMetaData>

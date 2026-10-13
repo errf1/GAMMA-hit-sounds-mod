@@ -13,7 +13,7 @@ namespace DHM.GammaHitEffects
     {
         static GammaHitEffectsMod()
         {
-            Harmony harmony = new Harmony("ahyyis.dhm.addon.gammahiteffects");
+            Harmony harmony = new Harmony("soc1almemory.gammahitsounds");
             Type resultType = typeof(DamageWorker).GetNestedType("DamageResult", BindingFlags.Public | BindingFlags.NonPublic);
             harmony.Patch(
                 AccessTools.Method(
@@ -35,9 +35,10 @@ namespace DHM.GammaHitEffects
                 postfix: new HarmonyMethod(typeof(GammaHitEffectsMod), "LeaveBulletDamageScope"));
         }
 
-        private static readonly Dictionary<int, int> LastSoundTickByPawn = new Dictionary<int, int>();
+        private static readonly HashSet<int> PawnsWithHitSoundThisTick = new HashSet<int>();
         private static readonly MethodInfo CEPartialStatForApparel =
             AccessTools.Method("CombatExtended.ArmorUtilityCE:PartialStat", new[] { typeof(Apparel), typeof(StatDef), typeof(BodyPartRecord) });
+        private static int hitSoundSetTick = -1;
         private static int lastCustomSoundTick = -1;
         private static IntVec3 lastCustomSoundCell = IntVec3.Invalid;
         private static Map lastCustomSoundMap;
@@ -120,10 +121,18 @@ namespace DHM.GammaHitEffects
             }
 
             int tick = Find.TickManager != null ? Find.TickManager.TicksGame : -1;
-            int lastTick;
-            if (tick >= 0 && LastSoundTickByPawn.TryGetValue(pawn.thingIDNumber, out lastTick) && lastTick == tick)
+            if (tick >= 0)
             {
-                return;
+                if (hitSoundSetTick != tick)
+                {
+                    PawnsWithHitSoundThisTick.Clear();
+                    hitSoundSetTick = tick;
+                }
+
+                if (PawnsWithHitSoundThisTick.Contains(pawn.thingIDNumber))
+                {
+                    return;
+                }
             }
 
             SoundDef soundDef = SelectSound(pawn, injury.Part);
@@ -132,7 +141,10 @@ namespace DHM.GammaHitEffects
                 return;
             }
 
-            LastSoundTickByPawn[pawn.thingIDNumber] = tick;
+            if (tick >= 0)
+            {
+                PawnsWithHitSoundThisTick.Add(pawn.thingIDNumber);
+            }
             MarkCustomHitPlayed(pawn);
             lastCustomSoundTick = tick;
             lastCustomSoundCell = pawn.Position;
@@ -277,8 +289,18 @@ namespace DHM.GammaHitEffects
 
             if (CEPartialStatForApparel != null)
             {
-                object value = CEPartialStatForApparel.Invoke(null, new object[] { apparel, StatDefOf.ArmorRating_Sharp, part });
-                return value is float && (float)value > 0.01f;
+                try
+                {
+                    object value = CEPartialStatForApparel.Invoke(null, new object[] { apparel, StatDefOf.ArmorRating_Sharp, part });
+                    if (value != null)
+                    {
+                        return Convert.ToSingle(value) > 0.01f;
+                    }
+                }
+                catch (TargetInvocationException)
+                {
+                    // CE is optional; fall back to RimWorld's apparel stat if its helper is unavailable at runtime.
+                }
             }
 
             return apparel.GetStatValue(StatDefOf.ArmorRating_Sharp) > 0.01f;

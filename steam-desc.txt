@@ -1,0 +1,27 @@
+[h1]GAMMA Hit Sounds[/h1]
+Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
+
+[img]https://github.com/user-attachments/assets/6c3d2fbd-b733-47fc-8565-0db5f589b547[/img]
+
+[h2]Features[/h2]
+[list]
+[*]Separate randomized pools for armored and unarmored body hits, helmet hits, and unhelmeted head hits.
+[*]The unhelmeted head pool combines gas-mask and unarmored sounds.
+[*]Limits regular hit sounds to one per pawn per game tick.
+[*]Bullet-related armor deflections use mechanoid impact sounds when no regular injury sound played.
+[*]Suppresses the matching vanilla ground-impact sound to avoid doubled effects.
+[*]Direct mechanoid injury sounds remain handled by the base game or other mods.
+[/list]
+
+[h2]Compatibility[/h2]
+[list]
+[*][b]RimWorld 1.6[/b]
+[*][b]Harmony required.[/b]
+[*][b]Combat Extended is optional.[/b] When installed, selected CE bullet-like damage types and partial apparel armor values are supported.
+[/list]
+
+[h2]Credits[/h2]
+Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
+
+[h2]Source Code[/h2]
+The project source is available on [url=https://github.com/soc1almemory/GAMMA-hit-sounds-mod]GitHub[/url] under the MIT License.

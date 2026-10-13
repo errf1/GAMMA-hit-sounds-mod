@@ -1,30 +1,46 @@
-# GAMMA hit sounds
+# GAMMA Hit Sounds
 
-Adds a hit sound effects from S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld
+![GAMMA Hit Sounds banner](res/banner.png)
 
-<img width="1920" height="512" alt="banner" src="https://github.com/user-attachments/assets/6c3d2fbd-b733-47fc-8565-0db5f589b547" />
+GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. It is made for RimWorld 1.6 and requires Harmony. Combat Extended compatibility is optional.
 
-https://www.stalkergamma.com/
+## Features
 
-Original mod: https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects
+- Uses separate sound pools for armored and unarmored body hits, helmet hits, unhelmeted head hits, and mechanoid armor deflections.
+- Chooses a random clip from the matching pool and limits regular hit sounds to one per pawn per game tick. Each pool contains 20 clips, except the unhelmeted head pool, which combines 20 gas-mask clips and 20 unarmored clips.
+- Uses sharp armor on the struck body part to choose between the armored and unarmored pools. When Combat Extended is loaded, its partial apparel-armor value is used when available.
+- Recognizes vanilla bullet damage and selected Combat Extended damage types: `Fragment`, `Tranquilizer`, `CE_Laser`, and `BulletToxic`.
+- Suppresses the matching vanilla ground-impact sound and replaces bullet-related `Deflect_Metal` and `Deflect_General` cues with the mechanoid pool when that damage event did not produce a normal injury sound.
+- Leaves direct mechanoid injury sounds to the base game and other loaded mods.
 
-Author: wepl
+## Sound files
 
-## Behavior
+RimWorld loads the clips from folders referenced by `Defs/SoundDefs/DHM_GammaHit_Sounds.xml`:
 
-- Bullet injuries on pawns play a random GAMMA hit sound.
-- Head hits use the helmet category only when the struck head part is covered by apparel with sharp armor.
-- Head hits without armored headgear use the shared `Head/NoHelmet` pool, including both `hit_gasmask_*` and `hit_none_*`.
-- Body hits use armor/no-armor categories based on apparel covering the struck body part.
-- Direct mechanoid hit sounds are left to the base game or other loaded mods.
-- The vanilla `BulletImpact_Ground` sound is suppressed in the same cell and tick as the custom hit sound to avoid doubling.
-- During bullet-like pawn damage, vanilla armor deflect sounds `Deflect_Metal` and `Deflect_General` are suppressed and replaced with the `Body/Mechanoid` pool (`hit_exo_*`) only if no normal injury hit sound was played for that same damage event.
+| Folder | Clips | Used for |
+| --- | ---: | --- |
+| `Sounds/GammaHits/Body/Armor` | 20 | Body parts covered by sharp armor |
+| `Sounds/GammaHits/Body/NoArmor` | 20 | Body parts without sharp armor |
+| `Sounds/GammaHits/Body/Mechanoid` | 20 | Replaced bullet-related armor deflections |
+| `Sounds/GammaHits/Head/Helmet` | 20 | Head parts covered by sharp armor |
+| `Sounds/GammaHits/Head/NoHelmet` | 40 | 20 gas-mask clips and 20 unarmored clips |
 
-## Combat Extended
+Clip names use descriptive category prefixes and two-digit sequence numbers, such as `hit_body_armor_01.ogg` and `hit_head_no_helmet_20.ogg`.
 
-The mod has optional Combat Extended compatibility:
+## Build
 
-- CE does not need to be installed for this mod to work.
-- If CE is installed, this mod loads after it.
-- CE bullet-like damage defs such as `Fragment`, `Tranquilizer`, `CE_Laser`, and `BulletToxic` are treated as firearm impacts.
-- CE partial armor coverage is used when available, so the armor/no-armor sound follows CE's body-part armor calculation more closely.
+The build requires the .NET SDK, the .NET Framework 4.7.2 Developer Pack, the RimWorld game assemblies, and Harmony's `0Harmony.dll`. Build with:
+
+```powershell
+dotnet build .\GammaHitSounds.csproj -c Release `
+  -p:RimWorldDir="D:\Games\Steam\steamapps\common\RimWorld" `
+  -p:HarmonyDir="D:\Games\Steam\steamapps\workshop\content\294100\2009463077\Current\Assemblies"
+```
+
+`RimWorldDir` must point to the game installation directory. `HarmonyDir` must point to the directory containing `0Harmony.dll`. You can also set the `RIMWORLD_DIR` and `HARMONY_DIR` environment variables instead of passing these properties. A Release build writes `DHM.GammaHitEffects.dll` to `GAMMA hit sounds/Assemblies`.
+
+## Credits and license
+
+The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
+
+The project source is available on [GitHub](https://github.com/soc1almemory/GAMMA-hit-sounds-mod) and is licensed under the [MIT License](LICENSE).

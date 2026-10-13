@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>DHM.GammaHitEffects</AssemblyName>
+    <RootNamespace>DHM.GammaHitEffects</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RimWorldDir Condition="'$(RimWorldDir)' == ''">$(RIMWORLD_DIR)</RimWorldDir>
+    <HarmonyDir Condition="'$(HarmonyDir)' == ''">$(HARMONY_DIR)</HarmonyDir>
+    <GameManagedDir>$(RimWorldDir)\RimWorldWin64_Data\Managed</GameManagedDir>
+    <OutputPath Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)\GAMMA hit sounds\Assemblies\</OutputPath>
+    <OutputPath Condition="'$(Configuration)' != 'Release'">$(MSBuildProjectDirectory)\bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(HarmonyDir)\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameManagedDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="ValidateModReferences" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(RimWorldDir)' == ''" Text="Set RimWorldDir or the RIMWORLD_DIR environment variable to your RimWorld installation directory." />
+    <Error Condition="!Exists('$(GameManagedDir)\Assembly-CSharp.dll')" Text="Could not find Assembly-CSharp.dll under $(GameManagedDir). Check RimWorldDir." />
+    <Error Condition="!Exists('$(GameManagedDir)\UnityEngine.CoreModule.dll')" Text="Could not find UnityEngine.CoreModule.dll under $(GameManagedDir). Check RimWorldDir." />
+    <Error Condition="!Exists('$(HarmonyDir)\0Harmony.dll')" Text="Could not find 0Harmony.dll under $(HarmonyDir). Set HarmonyDir or the HARMONY_DIR environment variable to its containing directory." />
+  </Target>
+</Project>
