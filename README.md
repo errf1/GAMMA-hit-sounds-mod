@@ -1,8 +1,12 @@
 # GAMMA Hit Sounds
 
-![GAMMA Hit Sounds banner](res/banner.png)
+![GAMMA Hit Sounds banner](https://i.postimg.cc/15zfJmLX/Preview.png)
 
 GAMMA Hit Sounds adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. Harmony required. Combat Extended is supported!
+
+## Steam Workshop
+
+GAMMA Hit Sounds is available for download on Steam Workshop. You can find it [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3819390495).
 
 ## Features
 
@@ -39,6 +43,8 @@ dotnet build .\GammaHitSounds.csproj -c Release `
 
 ## Credits and license
 
-The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
+The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). 
+
+Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
 
 This repository is licensed under the [MIT License](LICENSE).
