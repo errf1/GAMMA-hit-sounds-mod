@@ -1,6 +1,8 @@
 [img]https://i.postimg.cc/VNJv1KY1/img-desc.png[/img]
 
-[b]GAMMA hit sounds[/b] brings the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
+[b]GAMMA Hit Sounds[/b] brings the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
+
+I also highly recommend using this mod alongside: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3814447022]Gore Perfected[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806470380]Bullet Sounds[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3228047321]Blood Animations[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2917732219]Muzzle Flash[/url].
 
 [img]https://i.postimg.cc/tgsJyBXj/img-features.png[/img]
 [list]
@@ -15,4 +17,4 @@ Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M
 The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
 The project repository is available [url=https://github.com/soc1almemory/GAMMA-hit-sounds-mod]here[/url].
 
-[img]https://i.postimg.cc/7PGR70L9/img-monkey.png[/img]
+[img]https://i.postimg.cc/B6Q882fb/img-monkey.png[/img]
