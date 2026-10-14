@@ -1,9 +1,8 @@
-[h1]GAMMA Hit Sounds[/h1]
-Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
+[img]https://i.postimg.cc/VNJv1KY1/img-desc.png[/img]
 
-[img]https://i.postimg.cc/B63PFLHm/banner.png[/img]
+[b]GAMMA hit sounds[/b] brings the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
 
-[h2]Features[/h2]
+[img]https://i.postimg.cc/tgsJyBXj/img-features.png[/img]
 [list]
 [*][b]Armor-aware sounds:[/b] body and head injuries use separate armored and unarmored sound pools, selected according to sharp armor on the struck body part.
 [*][b]Randomized clips:[/b] each sound pool contains multiple impact clips for variety.
@@ -11,6 +10,8 @@ Bring the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuri
 [*][b]Mechanoid deflections:[/b] bullet-related armor deflection sounds use the mechanoid impact pool when that damage event did not produce a regular hit sound.
 [/list]
 
-[h2]Credits[/h2]
+[img]https://i.postimg.cc/251ym0zY/img-credits.png[/img]
 Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] 
 The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
+
+[img]https://i.postimg.cc/7PGR70L9/img-monkey.png[/img]
