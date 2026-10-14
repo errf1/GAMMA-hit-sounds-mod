@@ -1,6 +1,6 @@
 ![GAMMA Hit Sounds banner](https://i.postimg.cc/bvbw5sYP/banner.png)
 
-**GAMMA Hit Sounds** adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. Harmony required. Combat Extended is supported!
+**GAMMA Hit Sounds** adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. Harmony required. **Combat Extended is supported!**
 
 This mod is available for download on Steam Workshop. You can find it [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3819390495).
 
