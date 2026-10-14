@@ -13,5 +13,6 @@
 [img]https://i.postimg.cc/251ym0zY/img-credits.png[/img]
 Sound effects are from [url=https://www.stalkergamma.com/]S.T.A.L.K.E.R. G.A.M.M.A.[/url] 
 The original hit-effects mod is by [url=https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects]wepl[/url].
+The project repository is available [url=https://github.com/soc1almemory/GAMMA-hit-sounds-mod]here[/url].
 
 [img]https://i.postimg.cc/7PGR70L9/img-monkey.png[/img]
