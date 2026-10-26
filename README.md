@@ -6,6 +6,8 @@ The mod supports RimWorld 1.7
 
 This mod is available for download on Steam Workshop. You can find it [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3819390495).
 
+You can watch the demo video [here](https://youtu.be/gVhDpoXM8gA?si=dR5lrBKN2ovmMfU3).
+
 ## Features
 
 - Selects sounds for body and head injuries according to sharp armor on the struck body part. When Combat Extended is loaded, its body-part-specific armor value is used when available.
