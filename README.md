@@ -39,8 +39,7 @@ A Release build writes `DHM.GammaHitEffects.dll` to `GAMMA hit sounds/Assemblies
 
 ## Credits and license
 
-The sound effects are from S.T.A.L.K.E.R. G.A.M.M.A. The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects). 
-
-Learn more about GAMMA at [stalkergamma.com](https://www.stalkergamma.com/).
+The sound effects are from [S.T.A.L.K.E.R. G.A.M.M.A.](https://www.stalkergamma.com/).
+The original hit-effects mod is by [wepl](https://www.moddb.com/mods/call-of-chernobyl/addons/wepls-hit-effects).
 
 This repository is licensed under the [MIT License](LICENSE).
