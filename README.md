@@ -2,6 +2,8 @@
 
 **GAMMA Hit Sounds** adds randomized S.T.A.L.K.E.R. G.A.M.M.A. impact audio to firearm injuries in RimWorld. Harmony required. **Combat Extended is supported!**
 
+The mod supports RimWorld 1.7
+
 This mod is available for download on Steam Workshop. You can find it [here](https://steamcommunity.com/sharedfiles/filedetails/?id=3819390495).
 
 ## Features
@@ -27,7 +29,7 @@ RimWorld loads the clips from folders referenced by `Defs/SoundDefs/Gamma_Hit_So
 
 ## Build
 
-The project targets .NET Framework 4.7.2. Building requires the .NET SDK, the .NET Framework 4.7.2 Developer Pack, the RimWorld game assemblies, and Harmony's `0Harmony.dll`. Set `RIMWORLD_DIR` to the RimWorld installation directory and `HARMONY_DIR` to the directory containing `0Harmony.dll`, then run this from the project root:
+The shared mod assembly is built against RimWorld 1.6 and targets .NET Framework 4.7.2. RimWorld 1.7 is expected to load it through its compatibility layer. Building requires the .NET SDK, the .NET Framework 4.7.2 Developer Pack, the RimWorld 1.6 game assemblies, and Harmony's 1.6 `0Harmony.dll`. Set `RIMWORLD_DIR` to the RimWorld 1.6 installation directory and `HARMONY_DIR` to the directory containing `0Harmony.dll`, then run this from the project root:
 
 ```powershell
 dotnet build .\GammaHitSounds.csproj -c Release

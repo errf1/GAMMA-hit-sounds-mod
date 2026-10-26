@@ -2,6 +2,8 @@
 
 [b]GAMMA Hit Sounds[/b] brings the impact sounds of S.T.A.L.K.E.R. G.A.M.M.A. to RimWorld. Firearm injuries use randomized clips matched to the struck body part and its armor.
 
+[h3]1.7! 1.7! 1.7![/h3]
+
 I also highly recommend using this mod alongside [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3814447022]Gore Perfected[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806470380]Bullet Sounds[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3228047321]Blood Animations[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2917732219]Muzzle Flash[/url].
 
 [img]https://i.postimg.cc/mgx6VV2m/img-features.png[/img]
