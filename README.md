@@ -37,7 +37,7 @@ The shared mod assembly is built against RimWorld 1.6 and targets .NET Framework
 dotnet build .\GammaHitSounds.csproj -c Release
 ```
 
-A Release build writes `DHM.GammaHitEffects.dll` to `GAMMA hit sounds/Assemblies`.
+A Release build writes `GammaHitSounds.dll` to the selected version folder under `GAMMA hit sounds`.
 
 ## Credits and license
 
