@@ -1,18 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework Condition="'$(GameVersion)' == '1.6'">net472</TargetFramework>
+    <TargetFramework Condition="'$(GameVersion)' == '1.7'">net10.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <AssemblyName>DHM.GammaHitEffects</AssemblyName>
-    <RootNamespace>DHM.GammaHitEffects</RootNamespace>
+    <AssemblyName>GammaHitSounds</AssemblyName>
+    <RootNamespace>GammaHitSounds</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <RimWorldDir Condition="'$(RimWorldDir)' == ''">$(RIMWORLD_DIR)</RimWorldDir>
-    <HarmonyDir Condition="'$(HarmonyDir)' == ''">$(HARMONY_DIR)</HarmonyDir>
-    <GameManagedDir>$(RimWorldDir)\RimWorldWin64_Data\Managed</GameManagedDir>
-    <OutputPath Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)\GAMMA hit sounds\Assemblies\</OutputPath>
-    <OutputPath Condition="'$(Configuration)' != 'Release'">$(MSBuildProjectDirectory)\bin\$(Configuration)\</OutputPath>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(GameVersion)' == '1.6'">$(RIMWORLD_DIR)</RimWorldDir>
+    <RimWorldDir Condition="'$(RimWorldDir)' == '' and '$(GameVersion)' == '1.7'">$(RIMWORLD_17_DIR)</RimWorldDir>
+    <HarmonyDir Condition="'$(HarmonyDir)' == '' and '$(GameVersion)' == '1.6'">$(HARMONY_DIR)</HarmonyDir>
+    <HarmonyDir Condition="'$(HarmonyDir)' == '' and '$(GameVersion)' == '1.7'">$(HARMONY_17_DIR)</HarmonyDir>
+    <GameManagedDir Condition="'$(GameVersion)' == '1.6'">$(RimWorldDir)\RimWorldWin64_Data\Managed</GameManagedDir>
+    <GameManagedDir Condition="'$(GameVersion)' == '1.7'">$(RimWorldDir)</GameManagedDir>
+    <OutputPath Condition="'$(Configuration)' == 'Release'">$(MSBuildProjectDirectory)\GAMMA hit sounds\$(GameVersion)\Assemblies\</OutputPath>
+    <OutputPath Condition="'$(Configuration)' != 'Release'">$(MSBuildProjectDirectory)\bin\$(GameVersion)\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,16 +29,28 @@
       <HintPath>$(GameManagedDir)\Assembly-CSharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule">
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(GameVersion)' == '1.6'">
       <HintPath>$(GameManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Waylith" Condition="'$(GameVersion)' == '1.7'">
+      <HintPath>$(GameManagedDir)\Waylith.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs" Condition="'$(GameVersion)' == '1.7'">
+      <HintPath>$(GameManagedDir)\UnityStubs.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
 
-  <Target Name="ValidateModReferences" BeforeTargets="ResolveReferences">
-    <Error Condition="'$(RimWorldDir)' == ''" Text="Set RimWorldDir or the RIMWORLD_DIR environment variable to your RimWorld installation directory." />
-    <Error Condition="!Exists('$(GameManagedDir)\Assembly-CSharp.dll')" Text="Could not find Assembly-CSharp.dll under $(GameManagedDir). Check RimWorldDir." />
-    <Error Condition="!Exists('$(GameManagedDir)\UnityEngine.CoreModule.dll')" Text="Could not find UnityEngine.CoreModule.dll under $(GameManagedDir). Check RimWorldDir." />
-    <Error Condition="!Exists('$(HarmonyDir)\0Harmony.dll')" Text="Could not find 0Harmony.dll under $(HarmonyDir). Set HarmonyDir or the HARMONY_DIR environment variable to its containing directory." />
+  <Target Name="ValidateModReferences" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(GameVersion)' != '1.6' and '$(GameVersion)' != '1.7'" Text="GameVersion must be 1.6 or 1.7." />
+    <Error Condition="'$(RimWorldDir)' == ''" Text="Set RimWorldDir to the RimWorld $(GameVersion) installation directory. Use RIMWORLD_DIR for 1.6 or RIMWORLD_17_DIR for 1.7." />
+    <Error Condition="'$(HarmonyDir)' == ''" Text="Set HarmonyDir to the directory containing the Harmony $(GameVersion) 0Harmony.dll. Use HARMONY_DIR for 1.6 or HARMONY_17_DIR for 1.7." />
+    <Error Condition="!Exists('$(GameManagedDir)\Assembly-CSharp.dll')" Text="Could not find Assembly-CSharp.dll under $(GameManagedDir). Check RimWorldDir for version $(GameVersion)." />
+    <Error Condition="'$(GameVersion)' == '1.6' and !Exists('$(GameManagedDir)\UnityEngine.CoreModule.dll')" Text="Could not find UnityEngine.CoreModule.dll under $(GameManagedDir). Check the RimWorld 1.6 installation." />
+    <Error Condition="'$(GameVersion)' == '1.7' and !Exists('$(GameManagedDir)\UnityStubs.dll')" Text="Could not find UnityStubs.dll under $(GameManagedDir). Check the RimWorld 1.7 installation." />
+    <Error Condition="'$(GameVersion)' == '1.7' and !Exists('$(GameManagedDir)\Waylith.dll')" Text="Could not find Waylith.dll under $(GameManagedDir). Check the RimWorld 1.7 installation." />
+    <Error Condition="!Exists('$(HarmonyDir)\0Harmony.dll')" Text="Could not find 0Harmony.dll under $(HarmonyDir). Check the Harmony installation for version $(GameVersion)." />
   </Target>
 </Project>

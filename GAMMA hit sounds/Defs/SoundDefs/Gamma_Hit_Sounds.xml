@@ -2,7 +2,7 @@
 <Defs>
 
   <SoundDef>
-    <defName>DHM_GammaHit_Head_NoHelmet</defName>
+    <defName>Soc1alMemory_GammaHitSounds_Head_NoHelmet</defName>
     <context>MapOnly</context>
     <maxSimultaneous>3</maxSimultaneous>
     <subSounds>
@@ -19,7 +19,7 @@
   </SoundDef>
 
   <SoundDef>
-    <defName>DHM_GammaHit_Head_Helmet</defName>
+    <defName>Soc1alMemory_GammaHitSounds_Head_Helmet</defName>
     <context>MapOnly</context>
     <maxSimultaneous>3</maxSimultaneous>
     <subSounds>
@@ -36,7 +36,7 @@
   </SoundDef>
 
   <SoundDef>
-    <defName>DHM_GammaHit_Body_NoArmor</defName>
+    <defName>Soc1alMemory_GammaHitSounds_Body_NoArmor</defName>
     <context>MapOnly</context>
     <maxSimultaneous>3</maxSimultaneous>
     <subSounds>
@@ -53,7 +53,7 @@
   </SoundDef>
 
   <SoundDef>
-    <defName>DHM_GammaHit_Body_Armor</defName>
+    <defName>Soc1alMemory_GammaHitSounds_Body_Armor</defName>
     <context>MapOnly</context>
     <maxSimultaneous>3</maxSimultaneous>
     <subSounds>
@@ -70,7 +70,7 @@
   </SoundDef>
 
   <SoundDef>
-    <defName>DHM_GammaHit_Body_Mechanoid</defName>
+    <defName>Soc1alMemory_GammaHitSounds_Body_Mechanoid</defName>
     <context>MapOnly</context>
     <maxSimultaneous>3</maxSimultaneous>
     <subSounds>

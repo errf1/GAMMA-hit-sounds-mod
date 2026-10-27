@@ -6,88 +6,154 @@ using RimWorld;
 using Verse;
 using Verse.Sound;
 
-namespace DHM.GammaHitEffects
+namespace GammaHitSounds
 {
     [StaticConstructorOnStartup]
     public static class GammaHitEffectsMod
     {
-        static GammaHitEffectsMod()
-        {
-            Harmony harmony = new Harmony("soc1almemory.gammahitsounds");
-            Type resultType = typeof(DamageWorker).GetNestedType("DamageResult", BindingFlags.Public | BindingFlags.NonPublic);
-            harmony.Patch(
-                AccessTools.Method(
-                    typeof(DamageWorker_AddInjury),
-                    "FinalizeAndAddInjury",
-                    new[] { typeof(Pawn), typeof(Hediff_Injury), typeof(DamageInfo), resultType }),
-                postfix: new HarmonyMethod(typeof(GammaHitEffectsMod), "PlayGammaHitSound"));
-
-            harmony.Patch(
-                AccessTools.Method(
-                    typeof(SoundStarter),
-                    "PlayOneShot",
-                    new[] { typeof(SoundDef), typeof(SoundInfo) }),
-                prefix: new HarmonyMethod(typeof(GammaHitEffectsMod), "SuppressVanillaBulletGroundSound"));
-
-            harmony.Patch(
-                AccessTools.Method(typeof(Thing), "TakeDamage", new[] { typeof(DamageInfo) }),
-                prefix: new HarmonyMethod(typeof(GammaHitEffectsMod), "EnterBulletDamageScope"),
-                postfix: new HarmonyMethod(typeof(GammaHitEffectsMod), "LeaveBulletDamageScope"));
-        }
+        private const string SettingsDefName = "Soc1alMemory_GammaHitSounds_Settings";
+        private const string HeadNoHelmetSoundDefName = "Soc1alMemory_GammaHitSounds_Head_NoHelmet";
+        private const string HeadHelmetSoundDefName = "Soc1alMemory_GammaHitSounds_Head_Helmet";
+        private const string BodyNoArmorSoundDefName = "Soc1alMemory_GammaHitSounds_Body_NoArmor";
+        private const string BodyArmorSoundDefName = "Soc1alMemory_GammaHitSounds_Body_Armor";
+        private const string BodyMechanoidSoundDefName = "Soc1alMemory_GammaHitSounds_Body_Mechanoid";
 
         private static readonly HashSet<int> PawnsWithHitSoundThisTick = new HashSet<int>();
+        private static readonly HashSet<string> AdditionalBulletDamageDefNames =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         private static readonly MethodInfo CEPartialStatForApparel =
             AccessTools.Method("CombatExtended.ArmorUtilityCE:PartialStat", new[] { typeof(Apparel), typeof(StatDef), typeof(BodyPartRecord) });
-        private static int hitSoundSetTick = -1;
-        private static int lastCustomSoundTick = -1;
-        private static IntVec3 lastCustomSoundCell = IntVec3.Invalid;
-        private static Map lastCustomSoundMap;
         private static readonly Stack<DamageScopeState> ActiveDamageScopes = new Stack<DamageScopeState>();
+        private static int hitSoundSetTick = -1;
+        private static bool cePartialStatWarningLogged;
 
         private class DamageScopeState
         {
-            public bool active;
             public Pawn pawn;
             public bool customHitPlayed;
             public bool deflectSuppressed;
             public SoundInfo deflectInfo;
         }
 
-        private static void EnterBulletDamageScope(Thing __instance, DamageInfo dinfo, ref DamageScopeState __state)
+        static GammaHitEffectsMod()
         {
-            Pawn pawn = __instance as Pawn;
-            __state = new DamageScopeState
-            {
-                active = pawn != null && IsBulletDamage(dinfo),
-                pawn = pawn
-            };
+            LoadAdditionalBulletDamageDefs();
 
-            if (__state.active)
+            Harmony harmony = new Harmony("soc1almemory.gammahitsounds");
+            Type resultType = typeof(DamageWorker).GetNestedType("DamageResult", BindingFlags.Public | BindingFlags.NonPublic);
+            if (resultType == null)
             {
-                ActiveDamageScopes.Push(__state);
+                Log.Error("GAMMA Hit Sounds could not find DamageWorker.DamageResult; the injury sound patch was skipped.");
+            }
+            else
+            {
+                TryPatch(
+                    harmony,
+                    "injury sound",
+                    typeof(DamageWorker_AddInjury),
+                    "FinalizeAndAddInjury",
+                    new[] { typeof(Pawn), typeof(Hediff_Injury), typeof(DamageInfo), resultType },
+                    postfix: new HarmonyMethod(typeof(GammaHitEffectsMod), "PlayGammaHitSound"));
+            }
+
+            TryPatch(
+                harmony,
+                "vanilla impact sound suppression",
+                typeof(SoundStarter),
+                "PlayOneShot",
+                new[] { typeof(SoundDef), typeof(SoundInfo) },
+                prefix: new HarmonyMethod(typeof(GammaHitEffectsMod), "SuppressVanillaBulletGroundSound"));
+
+            TryPatch(
+                harmony,
+                "bullet damage scope",
+                typeof(Thing),
+                "TakeDamage",
+                new[] { typeof(DamageInfo) },
+                prefix: new HarmonyMethod(typeof(GammaHitEffectsMod), "EnterBulletDamageScope"),
+                finalizer: new HarmonyMethod(typeof(GammaHitEffectsMod), "FinalizeBulletDamageScope"));
+        }
+
+        private static void TryPatch(
+            Harmony harmony,
+            string patchDescription,
+            Type declaringType,
+            string methodName,
+            Type[] parameterTypes,
+            HarmonyMethod prefix = null,
+            HarmonyMethod postfix = null,
+            HarmonyMethod finalizer = null)
+        {
+            try
+            {
+                MethodInfo target = AccessTools.Method(declaringType, methodName, parameterTypes);
+                if (target == null)
+                {
+                    Log.Error("GAMMA Hit Sounds could not find the target for its " + patchDescription + " patch: "
+                        + declaringType.FullName + "." + methodName + ".");
+                    return;
+                }
+
+                harmony.Patch(target, prefix, postfix, finalizer: finalizer);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("GAMMA Hit Sounds failed to install its " + patchDescription + " patch: " + exception);
             }
         }
 
-        private static void LeaveBulletDamageScope(DamageScopeState __state)
+        private static void LoadAdditionalBulletDamageDefs()
         {
-            if (__state == null || !__state.active)
+            GammaHitSoundSettingsDef settings = DefDatabase<GammaHitSoundSettingsDef>.GetNamedSilentFail(SettingsDefName);
+            if (settings == null || settings.additionalBulletDamageDefs == null)
+            {
+                Log.Error("GAMMA Hit Sounds could not load its damage type settings definition: " + SettingsDefName + ".");
+                return;
+            }
+
+            foreach (string defName in settings.additionalBulletDamageDefs)
+            {
+                if (!string.IsNullOrWhiteSpace(defName))
+                {
+                    AdditionalBulletDamageDefNames.Add(defName.Trim());
+                }
+            }
+        }
+
+        private static void EnterBulletDamageScope(Thing __instance, DamageInfo dinfo, ref DamageScopeState __state)
+        {
+            Pawn pawn = __instance as Pawn;
+            __state = null;
+            if (pawn == null || !IsBulletDamage(dinfo))
             {
                 return;
             }
 
-            if (ActiveDamageScopes.Count > 0 && ActiveDamageScopes.Peek() == __state)
+            __state = new DamageScopeState { pawn = pawn };
+            ActiveDamageScopes.Push(__state);
+        }
+
+        private static Exception FinalizeBulletDamageScope(Exception __exception, DamageScopeState __state)
+        {
+            if (__state == null)
             {
-                ActiveDamageScopes.Pop();
-            }
-            else
-            {
-                RemoveDamageScope(__state);
+                return __exception;
             }
 
+            RemoveDamageScope(__state);
             if (__state.deflectSuppressed && !__state.customHitPlayed)
             {
-                PlayCustomSound(SoundDef.Named("DHM_GammaHit_Body_Mechanoid"), __state.deflectInfo);
+                try
+                {
+                    PlayCustomSound(SoundDef.Named(BodyMechanoidSoundDefName), __state.deflectInfo);
+                }
+                catch (Exception soundException)
+                {
+                    Log.Error("GAMMA Hit Sounds could not play the replacement deflection sound: " + soundException);
+                }
             }
+
+            return __exception;
         }
 
         private static void RemoveDamageScope(DamageScopeState state)
@@ -146,19 +212,21 @@ namespace DHM.GammaHitEffects
                 PawnsWithHitSoundThisTick.Add(pawn.thingIDNumber);
             }
             MarkCustomHitPlayed(pawn);
-            lastCustomSoundTick = tick;
-            lastCustomSoundCell = pawn.Position;
-            lastCustomSoundMap = pawn.Map;
             PlayCustomSound(soundDef, new TargetInfo(pawn.Position, pawn.Map, false));
         }
 
         private static bool SuppressVanillaBulletGroundSound(SoundDef soundDef, SoundInfo info)
         {
-            if (ActiveDamageScopes.Count > 0 && IsArmorDeflectSound(soundDef))
+            if (IsArmorDeflectSound(soundDef))
             {
-                DamageScopeState current = ActiveDamageScopes.Peek();
-                current.deflectSuppressed = true;
-                current.deflectInfo = info;
+                DamageScopeState deflectScope = FindDamageScope(info.Maker);
+                if (deflectScope == null)
+                {
+                    return true;
+                }
+
+                deflectScope.deflectSuppressed = true;
+                deflectScope.deflectInfo = info;
                 return false;
             }
 
@@ -167,14 +235,26 @@ namespace DHM.GammaHitEffects
                 return true;
             }
 
-            int tick = Find.TickManager != null ? Find.TickManager.TicksGame : -1;
-            if (tick != lastCustomSoundTick)
+            DamageScopeState injuryScope = FindDamageScope(info.Maker);
+            return injuryScope == null || !injuryScope.customHitPlayed;
+        }
+
+        private static DamageScopeState FindDamageScope(TargetInfo maker)
+        {
+            if (!maker.IsValid || maker.Map == null)
             {
-                return true;
+                return null;
             }
 
-            TargetInfo maker = info.Maker;
-            return maker.Map != lastCustomSoundMap || maker.Cell != lastCustomSoundCell;
+            foreach (DamageScopeState state in ActiveDamageScopes)
+            {
+                if (state.pawn != null && state.pawn.Map == maker.Map && state.pawn.Position == maker.Cell)
+                {
+                    return state;
+                }
+            }
+
+            return null;
         }
 
         private static bool IsArmorDeflectSound(SoundDef soundDef)
@@ -202,20 +282,10 @@ namespace DHM.GammaHitEffects
 
         private static void PlayCustomSound(SoundDef soundDef, SoundInfo info)
         {
-            if (soundDef == null)
+            if (soundDef != null)
             {
-                return;
+                SoundStarter.PlayOneShot(soundDef, info);
             }
-
-            TargetInfo maker = info.Maker;
-            if (maker.IsValid)
-            {
-                lastCustomSoundTick = Find.TickManager != null ? Find.TickManager.TicksGame : -1;
-                lastCustomSoundCell = maker.Cell;
-                lastCustomSoundMap = maker.Map;
-            }
-
-            SoundStarter.PlayOneShot(soundDef, info);
         }
 
         private static bool IsBulletDamage(DamageInfo dinfo)
@@ -223,20 +293,7 @@ namespace DHM.GammaHitEffects
             DamageDef def = dinfo.Def;
             return def == DamageDefOf.Bullet
                 || (def != null && def.impactSoundType != null && def.impactSoundType.defName == "Bullet")
-                || IsKnownCEBulletDamageDef(def);
-        }
-
-        private static bool IsKnownCEBulletDamageDef(DamageDef def)
-        {
-            if (def == null || def.defName == null)
-            {
-                return false;
-            }
-
-            return def.defName == "Fragment"
-                || def.defName == "Tranquilizer"
-                || def.defName == "CE_Laser"
-                || def.defName == "BulletToxic";
+                || (def != null && AdditionalBulletDamageDefNames.Contains(def.defName));
         }
 
         private static SoundDef SelectSound(Pawn pawn, BodyPartRecord part)
@@ -251,10 +308,10 @@ namespace DHM.GammaHitEffects
 
             if (headHit)
             {
-                return SoundDef.Named(armored ? "DHM_GammaHit_Head_Helmet" : "DHM_GammaHit_Head_NoHelmet");
+                return SoundDef.Named(armored ? HeadHelmetSoundDefName : HeadNoHelmetSoundDefName);
             }
 
-            return SoundDef.Named(armored ? "DHM_GammaHit_Body_Armor" : "DHM_GammaHit_Body_NoArmor");
+            return SoundDef.Named(armored ? BodyArmorSoundDefName : BodyNoArmorSoundDefName);
         }
 
         private static bool IsHeadPart(BodyPartRecord part)
@@ -297,13 +354,32 @@ namespace DHM.GammaHitEffects
                         return Convert.ToSingle(value) > 0.01f;
                     }
                 }
-                catch (TargetInvocationException)
+                catch (TargetInvocationException exception)
                 {
-                    // CE is optional; fall back to RimWorld's apparel stat if its helper is unavailable at runtime.
+                    LogCEPartialStatFallback(exception);
+                }
+                catch (ArgumentException exception)
+                {
+                    LogCEPartialStatFallback(exception);
+                }
+                catch (MethodAccessException exception)
+                {
+                    LogCEPartialStatFallback(exception);
                 }
             }
 
             return apparel.GetStatValue(StatDefOf.ArmorRating_Sharp) > 0.01f;
+        }
+
+        private static void LogCEPartialStatFallback(Exception exception)
+        {
+            if (cePartialStatWarningLogged)
+            {
+                return;
+            }
+
+            cePartialStatWarningLogged = true;
+            Log.Warning("GAMMA Hit Sounds could not query Combat Extended's part-specific armor value and will use RimWorld's apparel armor stat instead. " + exception);
         }
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <GammaHitSoundSettingsDef>
+    <defName>Soc1alMemory_GammaHitSounds_Settings</defName>
+    <additionalBulletDamageDefs>
+      <li>Fragment</li>
+      <li>Tranquilizer</li>
+      <li>CE_Laser</li>
+      <li>BulletToxic</li>
+    </additionalBulletDamageDefs>
+  </GammaHitSoundSettingsDef>
+</Defs>
