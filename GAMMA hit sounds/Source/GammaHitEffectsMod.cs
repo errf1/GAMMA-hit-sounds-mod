@@ -24,6 +24,9 @@ namespace GammaHitSounds
         private static readonly MethodInfo CEPartialStatForApparel =
             AccessTools.Method("CombatExtended.ArmorUtilityCE:PartialStat", new[] { typeof(Apparel), typeof(StatDef), typeof(BodyPartRecord) });
         private static readonly Stack<DamageScopeState> ActiveDamageScopes = new Stack<DamageScopeState>();
+        private static readonly SoundDef BulletGroundSoundDef;
+        private static readonly SoundDef MetalDeflectSoundDef;
+        private static readonly SoundDef GeneralDeflectSoundDef;
         private static int hitSoundSetTick = -1;
         private static bool cePartialStatWarningLogged;
 
@@ -38,6 +41,9 @@ namespace GammaHitSounds
         static GammaHitEffectsMod()
         {
             LoadAdditionalBulletDamageDefs();
+            BulletGroundSoundDef = SoundDefOf.BulletImpact_Ground;
+            MetalDeflectSoundDef = DefDatabase<SoundDef>.GetNamedSilentFail("Deflect_Metal");
+            GeneralDeflectSoundDef = DefDatabase<SoundDef>.GetNamedSilentFail("Deflect_General");
 
             Harmony harmony = new Harmony("soc1almemory.gammahitsounds");
             Type resultType = typeof(DamageWorker).GetNestedType("DamageResult", BindingFlags.Public | BindingFlags.NonPublic);
@@ -163,6 +169,12 @@ namespace GammaHitSounds
                 return;
             }
 
+            if (ReferenceEquals(ActiveDamageScopes.Peek(), state))
+            {
+                ActiveDamageScopes.Pop();
+                return;
+            }
+
             Stack<DamageScopeState> temp = new Stack<DamageScopeState>();
             while (ActiveDamageScopes.Count > 0)
             {
@@ -217,7 +229,7 @@ namespace GammaHitSounds
 
         private static bool SuppressVanillaBulletGroundSound(SoundDef soundDef, SoundInfo info)
         {
-            if (IsArmorDeflectSound(soundDef))
+            if (soundDef != null && (soundDef == MetalDeflectSoundDef || soundDef == GeneralDeflectSoundDef))
             {
                 DamageScopeState deflectScope = FindDamageScope(info.Maker);
                 if (deflectScope == null)
@@ -230,7 +242,7 @@ namespace GammaHitSounds
                 return false;
             }
 
-            if (soundDef != SoundDefOf.BulletImpact_Ground)
+            if (soundDef != BulletGroundSoundDef)
             {
                 return true;
             }
@@ -255,12 +267,6 @@ namespace GammaHitSounds
             }
 
             return null;
-        }
-
-        private static bool IsArmorDeflectSound(SoundDef soundDef)
-        {
-            return soundDef != null
-                && (soundDef.defName == "Deflect_Metal" || soundDef.defName == "Deflect_General");
         }
 
         private static void MarkCustomHitPlayed(Pawn pawn)
